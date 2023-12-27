@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header(member)" class="top-bar">
+    <div class="content">
+        <img src="images/headericon.png" alt="로고"
+             class="top-left logo" onclick="gohome()">
+        <h2 class="top-left top-home">머슬 업</h2>
+        <nav class="top-right">
+            <ul>
+                <th:block th:if="${member == null}">
+                    <li><a th:href="@{loginForm}">로그인</a></li>
+                    <li><a th:href="@{joinForm}">회원가입</a></li>
+                </th:block>
+                <th:block th:unless="${member == null}">
+                    <li th:text="${member.m_name}+'님 득근할 시간!'"></li>
+                    <li><a th:href="@{logout}">로그아웃</a></li>
+                    <li><a th:href="@{mypageForm}">내 정보</a></li>
+                    <li><a th:href="@{boardList}">게시판</a></li>
+                </th:block>
+            </ul>
+        </nav>
+    </div>
+    <script th:inline="javascript">
+        const mem = [[${session.member}]];
+
+        function gohome(){
+            if(mem != null){//로그인 한 상태
+                location.href = "/";
+            } else {//로그인 안한 상태
+                location.href = "/";
+            }
+        }
+    </script>
+</div>
+<div th:fragment="footer" class="footer-bar">
+    <div class="content">
+        <div class="fcontents">
+            <img src="images/footericon.png" class="footer-logo">
+            <span class="footer-txt">
+                &copy;Muscle UP Solo Project 2023
+            </span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

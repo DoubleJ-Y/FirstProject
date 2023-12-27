@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>정보수정</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script th:inline="javascript">
+        $(function () {
+            let m = [[${msg}]];
+            if (m != null) {
+                alert(m);
+            }
+        });
+    </script>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.member})}"/>
+</header>
+<section>
+    <div class="content">
+        <form th:action="@{m_updateProc}" method="post"
+              class="login-form" name="jForm2"
+              onsubmit="return check2()">
+            <h2 class="login-header">정보 수정</h2>
+
+            <th:block th:if="${session.member.m_sex == '남자'}">
+                <div class="login-input">
+                    남자<input type="radio" class="login-sex" name="m_sex" value="남자"
+                             title="성별" checked="checked">
+                    여자<input type="radio" class="login-sex" name="m_sex" value="여자"
+                             title="성별">
+                </div>
+            </th:block>
+            <th:block th:unless="${session.member.m_sex == '남자'}">
+                <div class="login-input">
+                    남자<input type="radio" class="login-sex" name="m_sex" value="남자"
+                             title="성별">
+                    여자<input type="radio" class="login-sex" name="m_sex" value="여자"
+                             title="성별" checked="checked">
+                </div>
+            </th:block>
+            <input type="text" class="login-input" readonly
+                   name="m_id" title="아이디"
+                   placeholder="아이디" th:value="${session.member.m_id}">
+            <input type="text" class="login-input"
+                   name="m_name" title="이름"
+                   placeholder="이름" th:value="${session.member.m_name}">
+            <input type="date" class="login-input"
+                   name="m_birth" title="생일"
+                   placeholder="생일" th:value="${session.member.m_birth}">
+            <input type="text" class="login-input"
+                   name="m_addr" title="주소"
+                   placeholder="주소" th:value="${session.member.m_addr}">
+            <input type="text" class="login-input"
+                   name="m_phone" title="연락처"
+                   placeholder="연락처" th:value="${session.member.m_phone}">
+            <input type="text" class="login-input"
+                   name="m_height" title="키"
+                   placeholder="키" th:value="${session.member.m_height}">
+            <input type="text" class="login-input"
+                   name="my_weight" title="나의체중"
+                   placeholder="나의체중" th:value="${session.member.my_weight}">
+            <input type="text" class="login-input"
+                   name="goal_weight" title="목표체중"
+                   placeholder="목표체중" th:value="${session.member.goal_weight}">
+            <input type="submit" class="login-btn"
+                   value="정보수정">
+            <input type="button" class="login-btn"
+                   value="취소" onclick="location.href='mypageForm'">
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+<script th:inline="javascript">
+
+
+
+    function check2() {
+
+        const joinF2 = document.jForm2; //Form 불러오기 name = jForm (const 로 변수선언을 하면 그 값은 변경이 불가능)
+        console.log(joinF2);
+        let length = joinF2.length - 3; //Form 목록에서 submit 부분을 제외하기위해 -1을 해준다.
+        for (let i = 0; i < length; i++) {
+            if (joinF2[i].value == "" || joinF2[i] == null) {
+                alert(`${joinF[i].title}을 입력해주세요!`);
+                joinF2[i].focus();
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+</html>

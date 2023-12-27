@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>머슬업 내가짜는 운동루틴</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- bxSlider용 라이브러리 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script th:inline="javascript">
+        $(function () {
+            //bxSlider 설정
+            $(".slider").bxSlider({
+                auto: true, //자동 순환
+                slideWidth: 600,   //슬라이더 가로 길이.
+            });
+
+            //메시지 출력
+            let m = [[${msg}]];
+            if(m != null){
+                alert(m);
+            }
+        });
+    </script>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.member})}" />
+</header>
+<section>
+    <div class="content-home">
+        <div class="slider">
+            <div><img src="images/dhdnsdhks1.jpg"></div>
+            <div><img src="images/dhdnsdhks2.jpg"></div>
+            <div><img src="images/dhdnsdhks3.jpg"></div>
+            <div><img src="images/dhdnsdhks4.jpg"></div>
+        </div>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}" />
+</footer>
+</body>
+</html>
